@@ -46,4 +46,12 @@ stdenv.mkDerivation {
   buildInputs = [
     ncurses
   ];
+
+  meta = {
+    platforms = [
+      # Here are Tested platforms
+      "x86_64-linux"
+      "aarch64-darwin"
+    ];
+  };
 }
