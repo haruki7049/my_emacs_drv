@@ -3,9 +3,9 @@
   stdenv,
   replaceVars,
   fetchFromGitHub,
+  autoreconfHook,
 
   # Deps tools
-  autoconf,
   pkg-config,
   texinfo,
   darwin,
@@ -71,13 +71,14 @@ stdenv.mkDerivation {
     "--with-cairo-xcb"
     "--with-xml2"
     "--with-tree-sitter"
-    "--with-ns"
     "--with-gconf"
     "--with-small-ja-dic"
     "--with-xwidgets"
     "--with-native-compilation"
 
     "--with-sound=yes"
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    "--with-ns"
   ];
 
   patches = [
@@ -107,7 +108,7 @@ stdenv.mkDerivation {
   ];
 
   nativeBuildInputs = [
-    autoconf
+    autoreconfHook
     pkg-config
     texinfo
   ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
