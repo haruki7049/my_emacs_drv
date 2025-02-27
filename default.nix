@@ -117,6 +117,11 @@ stdenv.mkDerivation {
     #webkitgtk_4_0
   ];
 
+  env = {
+    NATIVE_FULL_AOT = "1";
+    LIBRARY_PATH = lib.concatStringsSep ":" libGccJitLibraryPaths;
+  };
+
   buildInputs = [
     libgccjit
     zlib
