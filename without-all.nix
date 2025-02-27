@@ -7,6 +7,11 @@
   autoreconfHook,
   texinfo,
   ncurses,
+
+  # macOS Deps
+  gnutls,
+  pkg-config,
+  darwin,
 }:
 
 stdenv.mkDerivation {
@@ -29,11 +34,13 @@ stdenv.mkDerivation {
     "--enable-gtk-deprecation-warnings"
 
     "--without-all"
+    "--with-toolkit-scroll-bars"
   ];
 
   nativeBuildInputs = [
     autoreconfHook
     texinfo
+    darwin.sigtool
   ];
 
   buildInputs = [
