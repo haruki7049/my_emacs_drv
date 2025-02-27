@@ -1,10 +1,10 @@
 {
   lib,
   stdenv,
+  callPackage,
   replaceVars,
   fetchFromGitHub,
   autoreconfHook,
-
   # Deps tools
   pkg-config,
   texinfo,
@@ -23,7 +23,7 @@
   gtk3,
   xorg,
   giflib,
-  #webkitgtk_4_0,
+  webkitgtk_4_0 ? callPackage ./patch-drv/webkitgtk { },
 }:
 
 let
@@ -76,12 +76,13 @@ stdenv.mkDerivation {
     "--with-small-ja-dic"
     "--with-xwidgets"
     "--with-native-compilation"
+    "--with-pgtk"
 
     "--with-sound=yes"
   ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
     "--with-ns"
   ] ++ lib.optionals stdenv.hostPlatform.isLinux [
-    "--with-x-toolkit=lucid"
+    "--with-x-toolkit=gtk3"
   ];
 
   patches = [
@@ -116,7 +117,8 @@ stdenv.mkDerivation {
     texinfo
   ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
     darwin.sigtool
-    #webkitgtk_4_0
+  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    webkitgtk_4_0
   ];
 
   env = {
@@ -135,7 +137,7 @@ stdenv.mkDerivation {
     gtk3
     xorg.libXpm
     giflib
-    #webkitgtk_4_0
+    webkitgtk_4_0
   ];
 
   postInstall = lib.strings.optionalString stdenv.hostPlatform.isDarwin ''
