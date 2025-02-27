@@ -34,6 +34,8 @@ stdenv.mkDerivation {
 
     "--without-all"
     "--with-toolkit-scroll-bars"
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    "--with-ns"
   ];
 
   nativeBuildInputs = [
@@ -46,6 +48,11 @@ stdenv.mkDerivation {
   buildInputs = [
     ncurses
   ];
+
+  postInstall = lib.strings.optionalString stdenv.hostPlatform.isDarwin ''
+    mkdir -p $out/Applications
+    mv nextstep/Emacs.app $out/Applications
+  '';
 
   meta = {
     platforms = [
