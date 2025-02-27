@@ -18,6 +18,11 @@
   ncurses,
   imagemagick,
   tree-sitter,
+
+  # Linux Deps
+  gtk3,
+  xorg,
+  giflib
 }:
 
 let
@@ -116,6 +121,10 @@ stdenv.mkDerivation {
     ncurses
     imagemagick
     tree-sitter
+  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    gtk3
+    xorg.libXpm
+    giflib
   ];
 
   #postInstall = lib.strings.optionalString stdenv.hostPlatform.isDarwin ''
