@@ -46,6 +46,8 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   configureFlags = [
+    "--prefix=$out/Applications/Emacs.app/Contents/MacOS"
+
     # Optional Features
     "--enable-profiling"
     "--enable-check-lisp-object-type"
@@ -118,10 +120,14 @@ stdenv.mkDerivation {
     tree-sitter
   ];
 
-  postInstall = lib.strings.optionalString stdenv.hostPlatform.isDarwin ''
-    mkdir $out/Application
-    mkdir $out/bin
-    cp -r nextstep/Emacs.app $out/Application
-    cp nextstep/Emacs.app/Contents/MacOS/bin/{ctags,ebrowse,emacsclient,etags} $out/bin/
-  '';
+  makeFlags = [
+    "DESTDIR=$(out)"
+  ];
+
+  #postInstall = lib.strings.optionalString stdenv.hostPlatform.isDarwin ''
+  #  mkdir $out/Application
+  #  mkdir $out/bin
+  #  cp -r nextstep/Emacs.app $out/Application
+  #  cp nextstep/Emacs.app/Contents/MacOS/bin/{ctags,ebrowse,emacsclient,etags} $out/bin/
+  #'';
 }
