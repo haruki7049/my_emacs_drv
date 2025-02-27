@@ -80,6 +80,8 @@ stdenv.mkDerivation {
     "--with-sound=yes"
   ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
     "--with-ns"
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    "--with-x-toolkit=lucid"
   ];
 
   patches = [
