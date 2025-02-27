@@ -74,7 +74,7 @@ stdenv.mkDerivation {
     "--with-tree-sitter"
     "--with-gconf"
     "--with-small-ja-dic"
-    #"--with-xwidgets"
+    "--with-xwidgets"
     "--with-native-compilation"
 
     "--with-sound=yes"
