@@ -22,7 +22,8 @@
   # Linux Deps
   gtk3,
   xorg,
-  giflib
+  giflib,
+  #webkitgtk_4_0,
 }:
 
 let
@@ -73,7 +74,7 @@ stdenv.mkDerivation {
     "--with-tree-sitter"
     "--with-gconf"
     "--with-small-ja-dic"
-    "--with-xwidgets"
+    #"--with-xwidgets"
     "--with-native-compilation"
 
     "--with-sound=yes"
@@ -113,6 +114,7 @@ stdenv.mkDerivation {
     texinfo
   ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
     darwin.sigtool
+    #webkitgtk_4_0
   ];
 
   buildInputs = [
@@ -126,12 +128,11 @@ stdenv.mkDerivation {
     gtk3
     xorg.libXpm
     giflib
+    #webkitgtk_4_0
   ];
 
-  #postInstall = lib.strings.optionalString stdenv.hostPlatform.isDarwin ''
-  #  mkdir $out/Application
-  #  mkdir $out/bin
-  #  cp -r nextstep/Emacs.app $out/Application
-  #  cp nextstep/Emacs.app/Contents/MacOS/bin/{ctags,ebrowse,emacsclient,etags} $out/bin/
-  #'';
+  postInstall = lib.strings.optionalString stdenv.hostPlatform.isDarwin ''
+    mkdir -p $out/Applications
+    mv nextstep/Emacs.app $out/Applications
+  '';
 }
