@@ -46,8 +46,6 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   configureFlags = [
-    "--prefix=$out/Applications/Emacs.app/Contents/MacOS"
-
     # Optional Features
     "--enable-profiling"
     "--enable-check-lisp-object-type"
@@ -118,10 +116,6 @@ stdenv.mkDerivation {
     ncurses
     imagemagick
     tree-sitter
-  ];
-
-  makeFlags = [
-    "DESTDIR=$(out)"
   ];
 
   #postInstall = lib.strings.optionalString stdenv.hostPlatform.isDarwin ''
