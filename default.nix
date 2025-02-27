@@ -80,7 +80,7 @@ stdenv.mkDerivation {
     "--with-sound=yes"
   ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
     "--with-ns"
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
     "--with-x-toolkit=lucid"
   ];
 
