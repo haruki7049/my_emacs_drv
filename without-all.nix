@@ -10,7 +10,6 @@
 
   # macOS Deps
   gnutls,
-  pkg-config,
   darwin,
 }:
 
@@ -40,6 +39,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     autoreconfHook
     texinfo
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
     darwin.sigtool
   ];
 
