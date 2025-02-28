@@ -5,6 +5,7 @@
   replaceVars,
   fetchFromGitHub,
   autoreconfHook,
+
   # Deps tools
   pkg-config,
   texinfo,
@@ -23,7 +24,7 @@
   gtk3,
   xorg,
   giflib,
-  webkitgtk_4_0 ? callPackage ./patch-drv/webkitgtk { },
+  webkitgtk_4_0,
 }:
 
 let
@@ -86,6 +87,7 @@ stdenv.mkDerivation {
   ];
 
   patches = [
+    ./fix-webkitgtk-version.patch
     (replaceVars (./native-comp-driver-options-30.patch) {
       backendPath = (
         lib.concatStringsSep " " (
