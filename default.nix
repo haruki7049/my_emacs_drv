@@ -77,7 +77,6 @@ stdenv.mkDerivation {
     "--with-small-ja-dic"
     "--with-xwidgets"
     "--with-native-compilation"
-    "--with-pgtk"
 
     "--with-sound=yes"
   ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
