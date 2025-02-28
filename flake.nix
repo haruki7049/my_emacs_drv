@@ -15,6 +15,10 @@
         "aarch64-darwin"
       ];
 
+      flake.overlays = {
+        default = ./overlay.nix;
+      };
+
       perSystem = { pkgs, ... }:
       let
         emacs = pkgs.callPackage ./. { };
