@@ -16,7 +16,7 @@
       ];
 
       flake.overlays = {
-        default = ./overlay.nix;
+        default = import ./overlay.nix;
       };
 
       perSystem = { pkgs, ... }:
