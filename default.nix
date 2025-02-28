@@ -144,4 +144,8 @@ stdenv.mkDerivation {
     mkdir -p $out/Applications
     mv nextstep/Emacs.app $out/Applications
   '';
+
+  meta = {
+    platforms = lib.platforms.unix;
+  };
 }
