@@ -52,11 +52,6 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
 
   configureFlags = [
-    # Optional Features
-    "--enable-profiling"
-    "--enable-check-lisp-object-type"
-    "--enable-gtk-deprecation-warnings"
-
     # Optional Packages
     "--with-mailutils"
     "--with-xpm"
