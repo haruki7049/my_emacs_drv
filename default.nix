@@ -24,7 +24,6 @@
   gtk3,
   xorg,
   giflib,
-  webkitgtk_4_0,
 }:
 
 let
@@ -75,18 +74,21 @@ stdenv.mkDerivation {
     "--with-tree-sitter"
     "--with-gconf"
     "--with-small-ja-dic"
-    "--with-xwidgets"
     "--with-native-compilation"
 
     "--with-sound=yes"
   ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    # I don't know the reason but this feature cannot use on x86_64-linux, Perhaps WebkitGTK & GTK3 is the reason
+    # This feature can use on aarch64-darwin
+    "--with-xwidgets"
+
     "--with-ns"
   ] ++ lib.optionals stdenv.hostPlatform.isLinux [
     "--with-x-toolkit=gtk3"
   ];
 
   patches = [
-    ./fix-webkitgtk-version.patch
+    #./fix-webkitgtk-version.patch
     (replaceVars (./native-comp-driver-options-30.patch) {
       backendPath = (
         lib.concatStringsSep " " (
@@ -119,7 +121,7 @@ stdenv.mkDerivation {
   ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
     darwin.sigtool
   ] ++ lib.optionals stdenv.hostPlatform.isLinux [
-    webkitgtk_4_0
+    #webkitgtk_4_0
   ];
 
   env = {
@@ -138,7 +140,7 @@ stdenv.mkDerivation {
     gtk3
     xorg.libXpm
     giflib
-    webkitgtk_4_0
+    #webkitgtk_4_0
   ];
 
   postInstall = lib.strings.optionalString stdenv.hostPlatform.isDarwin ''
