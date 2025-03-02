@@ -55,10 +55,6 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    platforms = [
-      # Here are Tested platforms
-      "x86_64-linux"
-      "aarch64-darwin"
-    ];
+    platforms = lib.platforms.unix;
   };
 }
